@@ -6,16 +6,16 @@ b_value = gets.chomp.to_f
 print "Insert C value: "
 c_value = gets.chomp.to_f
 
-diskr = b_value**2 - 4 * a_value * c_value
+discr = b_value**2 - 4 * a_value * c_value
 
-if diskr > 0 
-  sq_discr = Math.sqrt(diskr)
+if discr > 0 
+  sq_discr = Math.sqrt(discr)
   x1 = (- b_value + sq_discr) / (2 * a_value)
   x2 = (- b_value - sq_discr) / (2 * a_value)
-  print "Discriminan: #{diskr}, first root: #{x1}, second root: #{x2}."
-elsif diskr == 0
+  print "Discriminant: #{discr}, first root: #{x1}, second root: #{x2}."
+elsif discr == 0
   x1 = - b_value / (2 * a_value)
-  print "Discriminan: #{diskr}, root #{x}."
+  print "Discriminant: #{discr}, root #{x1}."
 else
-  print "Discriminan: #{diskr}, and no roots."
+  print "Discriminant: #{discr}, and no roots."
 end
