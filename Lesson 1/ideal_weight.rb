@@ -2,7 +2,7 @@ print "Hi! What's your name? \n"
 user_name = gets.chomp.capitalize
 
 print "#{user_name}, what's your height? \n"
-user_height = gets.chomp.to_f
+user_height = gets.to_f
 
 ideal_weight = user_height - 110
 
