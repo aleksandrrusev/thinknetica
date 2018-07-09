@@ -19,6 +19,6 @@ class Route
 
   def stations_all
     print "List of all stations:\n"
-    stations.list.each { |elem| print "#{elem}\n" }
+    stations.each { |elem| print "#{elem}\n" }
   end
 end
