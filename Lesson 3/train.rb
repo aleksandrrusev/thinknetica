@@ -1,5 +1,5 @@
 class Train
-  attr_reader :number, :type, :carriage_num, :route
+  attr_reader :number, :type, :carriage_num, :current_speed, :route
 
   def initialize(number, type, carriage_num = 1)
     @trains = number
@@ -23,17 +23,25 @@ class Train
   end
 
   def detach_carriage(value)
-    @current_speed == 0 && @carriage_num >= 2 ? @carriage_num -= value : "You have only #{@carriage_num}, there is nothing to detach!"
+    @current_speed == 0 && @carriage_num >= 1 ? @carriage_num -= value : "You have only #{@carriage_num}, there is nothing to detach!"
   end
 
   def stations
     @route.stations
   end
 
-  def train_route(route)
+  def route_add(route)
     @route = route
     @route_index = 0
-    stations.first.arrival(self)
+    station_first.station_accept(self)
+  end
+
+  def station_first
+    stations[0]
+  end
+
+  def station_last
+    stations[-1]
   end
 
   def station_current
@@ -41,30 +49,30 @@ class Train
   end
   
   def station_next
-    station_current != stations.last ? @route.stations[@route_index + 1] : nil
+    @route.stations[@route_index + 1] if station_current != station_last
   end
 
   def station_prev
-    station_current != stations.first ? @route.stations[@route_index - 1] : nil
+    @route.stations[@route_index - 1] if station_current != station_first
   end
 
   def goto_station_next
-    if station_current != stations.last
-      station_current.departure(self)
+    if station_current != station_last
+      station_current.station_send(self)
       @route_index += 1
-      station_current.arrival(self)
+      station_current.station_accept(self)
     else
-      print "#{stations.last.station_name} is the last station."
+      print "#{station_last.station_name} is the last station."
     end
   end
 
   def goto_station_prev
-    if station_current != stations.first
-      station_current.departure(self)
+    if station_current != station_first
+      station_current.station_send(self)
       @route_index -= 1
-      station_current.arrival(self)
+      station_current.station_accept(self)
     else
-      print "#{stations.first.station_name} is the first station."
+      print "#{station_first.station_name} is the first station."
     end
   end
 end
