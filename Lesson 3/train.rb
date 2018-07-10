@@ -41,7 +41,7 @@ class Train
   def route_add(route)
     @route = route
     @route_index = 0
-    station_first.station_accept(self)
+    station_first.accept_train(self)
   end
 
   def station_first
@@ -66,9 +66,9 @@ class Train
 
   def goto_station_next
     if station_next
-      station_current.station_send(self)
+      station_current.send_train(self)
       @route_index += 1
-      station_current.station_accept(self)
+      station_current.accept_train(self)
     else
       print "#{station_last.name} is the last station."
     end
@@ -76,9 +76,9 @@ class Train
 
   def goto_station_prev
     if station_prev
-      station_current.station_send(self)
+      station_current.send_train(self)
       @route_index -= 1
-      station_current.station_accept(self)
+      station_current.accept_train(self)
     else
       print "#{station_first.name} is the first station."
     end
