@@ -10,11 +10,11 @@ class Station
     @trains.select { |train| train.type == type }
   end
 
-  def station_accept(train)
+  def accept_train(train)
     @trains << train
   end
 
-  def station_send(train)
+  def send_train(train)
     @trains.empty? ? "No trains" : "From station departure train: #{@trains.delete(train)}"
   end
 end
