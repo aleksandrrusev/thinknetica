@@ -13,8 +13,8 @@ class Route
     stations[-1]
   end
 
-  def edge_stations?(station)
-    [station_first, station_last].include?(station)
+  def not_edge?(station)
+    ![station_first, station_last].include?(station)
   end
 
   def station_add(station)
@@ -26,7 +26,7 @@ class Route
   end
 
   def station_delete(station)
-    if stations.include?(station) && !edge_stations?(station)
+    if stations.include?(station) && not_edge?(station)
       stations.delete(station) 
     else
       puts "Station #{station} is not found or it's a first or last one!"
@@ -35,6 +35,6 @@ class Route
 
   def stations_all
     puts "List of all stations:"
-    stations.each { |elem| puts "Station name:#{elem.station_name}" }
+    stations.each { |station| puts "Station name:#{station.name}" }
   end
 end

@@ -2,7 +2,7 @@ class Train
   attr_reader :number, :type, :carriage_num, :current_speed, :route
 
   def initialize(number, type, carriage_num = 1)
-    @trains = number
+    @train_num = number
     @type = type
     @carriage_num = carriage_num
     @current_speed = 0
@@ -18,12 +18,20 @@ class Train
     puts "Speed was reduce by #{value} and now is #{@current_speed}!"
   end
 
-  def atach_carriage(value)
-    @current_speed == 0 ? @carriage_num += value : "Current speed: #{@current_speed}. It's insane! Stop the train before adding carriage."
+  def atach_carriage
+    if @current_speed == 0
+      @carriage_num += 1
+    else
+      puts "Current speed: #{@current_speed}. It's insane! Stop the train before adding carriage."
+    end
   end
 
-  def detach_carriage(value)
-    @current_speed == 0 && @carriage_num >= 1 ? @carriage_num -= value : "You have only #{@carriage_num}, there is nothing to detach!"
+  def detach_carriage
+    if @current_speed == 0 && @carriage_num >= 1
+      @carriage_num -= 1
+    else
+      puts "You have only #{@carriage_num}, there is nothing to detach!"
+    end
   end
 
   def stations
@@ -57,22 +65,22 @@ class Train
   end
 
   def goto_station_next
-    if station_current != station_last
+    if station_next
       station_current.station_send(self)
       @route_index += 1
       station_current.station_accept(self)
     else
-      print "#{station_last.station_name} is the last station."
+      print "#{station_last.name} is the last station."
     end
   end
 
   def goto_station_prev
-    if station_current != station_first
+    if station_prev
       station_current.station_send(self)
       @route_index -= 1
       station_current.station_accept(self)
     else
-      print "#{station_first.station_name} is the first station."
+      print "#{station_first.name} is the first station."
     end
   end
 end
