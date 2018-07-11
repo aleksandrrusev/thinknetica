@@ -15,6 +15,6 @@ class Station
   end
 
   def send_train(train)
-    @trains.empty? ? "No trains" : "From station departure train: #{@trains.delete(train)}"
+    @trains.delete(train) if @trains.include?(train)
   end
 end
